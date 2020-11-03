@@ -1,0 +1,8 @@
+library(ggplot2)
+Affairs <- read.csv("Affairs.csv")
+attach(Affairs)
+fm.ols <- lm(affairs ~ ., data=Affairs)
+fm.probit <- glm(I(affairs > 0) ~ ., data=Affairs, family=binomial(link="logit"))
+summary(fm.probit)
+par(mfrow=c(2,2))
+plot(fm.probit)

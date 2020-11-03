@@ -1,0 +1,40 @@
+```{r}
+Auto <- read.csv("Auto.csv", header=T, na.strings="?")
+Auto <- na.omit(Auto)
+lm.ols <- lm(mpg ~ horsepower, data=Auto)
+summary(lm.ols)
+confint(lm.ols)
+par(mfrow=c(2,2))
+plot(lm.ols)
+```
+
+## Is there a relationship between the predictor and the re-sponse?
+
+Yes, based on the F value and its associated P value. 
+
+## How strong is the relationship between the predictor andthe response?
+
+R^2 is 0.6, which means about 60% variance of mpg is explained by horsepower.
+Another way to figure out the accuracy is to compute the RSE as a % of the mean of the mpg.
+```{r}
+100*4.906/mean(Auto$mpg)
+```
+
+## Is the relationship between the predictor and the response positive or negative?
+
+Negative, see graph between `lm.ols` and `horsepower`
+
+## What is the predicted mpg associated with a horsepower of 98? What are the associated 95 % confidence and prediction intervals?
+
+```{r}
+predict(lm.ols, data.frame(horsepower=c(98)), interval="confidence")
+predict(lm.ols, data.frame(horsepower=c(98)), interval="prediction")
+```
+
+## Plot the response and the predictor. Use theabline() function to display the least squares regression line.
+
+```{r}
+plot(Auto$horsepower, Auto$mpg)
+abline(lm.ols)
+```
+NB: abline plots (intercept, slope), which in this single variable regression is the first two coefficients. Therefore we plot horsepower on the x axis. Since its coefficient is negative, and the intercept is positive, we get a -ve trend line.

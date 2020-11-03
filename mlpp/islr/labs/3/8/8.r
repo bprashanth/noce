@@ -1,0 +1,7 @@
+Auto <- read.csv("Auto.csv", header=T, na.strings="?")
+Auto <- na.omit(Auto)
+lm.ols <- lm(mpg ~ horsepower, data=Auto)
+summary(lm.ols)
+confint(lm.ols)
+par(mfrow=c(2,2))
+plot(lm.ols)
