@@ -1,5 +1,5 @@
 ```{r}
-Auto <- read.csv("Auto.csv", header=T, na.strings="?")
+Auto <- read.csv("/home/beeps/rtmp/external/eco/noce/islr/labs/3/8/data/auto.csv", header=T, na.strings="?")
 Auto <- na.omit(Auto)
 lm.ols <- lm(mpg ~ horsepower, data=Auto)
 summary(lm.ols)
@@ -10,7 +10,7 @@ plot(lm.ols)
 
 ## Is there a relationship between the predictor and the re-sponse?
 
-Yes, based on the F value and its associated P value. 
+Yes, based on the F value and its associated P value.
 
 ## How strong is the relationship between the predictor andthe response?
 

@@ -1,4 +1,4 @@
-Auto <- read.csv("Auto.csv", header=T, na.strings="?")
+Auto <- read.csv("/home/beeps/rtmp/external/eco/noce/islr/labs/3/8/data/auto.csv", header=T, na.strings="?")
 Auto <- na.omit(Auto)
 lm.ols <- lm(mpg ~ horsepower, data=Auto)
 summary(lm.ols)

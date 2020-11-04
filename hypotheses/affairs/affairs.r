@@ -1,5 +1,5 @@
 library(ggplot2)
-Affairs <- read.csv("Affairs.csv")
+Affairs <- read.csv("/home/beeps/rtmp/external/eco/noce/hypotheses/affairs/data/affairs.csv")
 attach(Affairs)
 fm.ols <- lm(affairs ~ ., data=Affairs)
 fm.probit <- glm(I(affairs > 0) ~ ., data=Affairs, family=binomial(link="logit"))
