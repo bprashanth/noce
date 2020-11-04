@@ -1,0 +1,18 @@
+Produce a scatterplot matrix which includes all the variables in the dataset 
+```{r}
+auto <- read.csv("/home/beeps/rtmp/external/eco/noce/islr/labs/3/data/auto.csv")   
+auto = na.omit(auto)
+plot(auto)
+```
+Compute the matrix of correlations between the variables using the function `cor()`. Exclude the name variable, which is qualitative. 
+
+First preprocess the data to remove rows like
+* sapply: applies the function mapping all values of auto to a numeric value. 
+  - Non numerics are converted to NA. 
+* subset: drops the name column, which is all NA 
+* na.omit: omits other rows that have NA because of spurious data entries
+```{r}
+auto[33,]
+auto_clean <- na.omit(subset(data.frame(sapply(auto, function(x) as.numeric(x))), select=-name))
+cor(auto_clean)
+```
