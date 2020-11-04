@@ -1,3 +1,2 @@
-Does not recommend to fans of: programming. economics.
-
-Recommends to fans of: horror, especially of the data science variety.
+Does not recommend to fans of: Programming. Economics.
+Recommends to fans of: Horror. Divide by zero. Null ptr.
