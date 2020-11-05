@@ -63,12 +63,12 @@ plot(cooksd, pch="*")
 # Plot cutoff line at 4 * mean(cookds)
 abline(h = 4*mean(cooksd, na.rm=T), col="red")
 # Plot labels only if above abline 
-text(x=1:length(cooksd) + 1, y=cooksd, labels=ifelse(cooksd>4*mean(cooksd, na.rm=T), names(cooksd, "")), col="red")
+text(x=1:length(cooksd) + 1, y=cooksd, labels=ifelse(cooksd>4*mean(cooksd, na.rm=T), names(cooksd), ""), col="red")
 ```
 
 b. plot the studentized residual, values > 3 on the absolute scale are classified outliers. 
 ```{r}
-plot(predict(lm.ols), rstudent(lm.fit))
+plot(predict(lm.ols), rstudent(lm.ols))
 ```
 
 ## e. Use the * and : symbols to fit linear regression models with interaction effects. 
