@@ -569,6 +569,66 @@ text(x=1:length(cooksd) + 1, y=cooksd, labels=ifelse(cooksd&gt;4*mean(cooksd, na
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Try a few different transformations of the variables such as log(x), root(x), x^2</li>
 </ol>
+<ul>
+<li>One applies root, log against skewed transformations (roots are weaker)</li>
+</ul>
+<pre class="r"><code>summary(lm(mpg~log(weight)+sqrt(horsepower)+acceleration+I(acceleration^2), data=auto_clean))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ log(weight) + sqrt(horsepower) + acceleration + 
+##     I(acceleration^2), data = auto_clean)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11.2932  -2.5082  -0.2237   2.0237  15.7650 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       178.30303   10.80451  16.503  &lt; 2e-16 ***
+## log(weight)       -14.74259    1.73994  -8.473 5.06e-16 ***
+## sqrt(horsepower)   -1.85192    0.36005  -5.144 4.29e-07 ***
+## acceleration       -2.19890    0.63903  -3.441 0.000643 ***
+## I(acceleration^2)   0.06139    0.01857   3.305 0.001037 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.99 on 387 degrees of freedom
+## Multiple R-squared:  0.7414, Adjusted R-squared:  0.7387 
+## F-statistic: 277.3 on 4 and 387 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ul>
+<li>Worse R squared and better F than the regular OLS</li>
+<li>The residual vs fitted values show indications of heteroskedasticity (non uniform varience of residuals around the mean of the residuals - cone shaped, initially low, increasing)</li>
+<li>Multiple variables show an l like form when plotted against y, indicating that it might be better to take a log on the response variable (mpg) instead</li>
+</ul>
+<pre class="r"><code>summary(lm(log(mpg)~., data=auto_clean))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = log(mpg) ~ ., data = auto_clean)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.40955 -0.06533  0.00079  0.06785  0.33925 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.751e+00  1.662e-01  10.533  &lt; 2e-16 ***
+## cylinders    -2.795e-02  1.157e-02  -2.415  0.01619 *  
+## displacement  6.362e-04  2.690e-04   2.365  0.01852 *  
+## horsepower   -1.475e-03  4.935e-04  -2.989  0.00298 ** 
+## weight       -2.551e-04  2.334e-05 -10.931  &lt; 2e-16 ***
+## acceleration -1.348e-03  3.538e-03  -0.381  0.70339    
+## year          2.958e-02  1.824e-03  16.211  &lt; 2e-16 ***
+## origin        4.071e-02  9.955e-03   4.089 5.28e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.1191 on 384 degrees of freedom
+## Multiple R-squared:  0.8795, Adjusted R-squared:  0.8773 
+## F-statistic: 400.4 on 7 and 384 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ul>
+<li>This shows better R squared and F than the regular ols</li>
+<li>There is also no longer any evidence of hetereskedascity around the mean of the residuals</li>
+</ul>
 </div>
 
 

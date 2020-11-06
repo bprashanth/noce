@@ -82,5 +82,22 @@ Do any interactions appear to be statistically significant?
 
 One way to pick the terms for interaction is via correlation matrix. It looks like displacement:weight is significant while the interaction between displacement and cylinders is not. 
 
-f. Try a few different transformations of the variables such as log(x), root(x), x^2
+## f. Try a few different transformations of the variables such as log(x), root(x), x^2
 
+* One applies root, log against skewed transformations (roots are weaker)
+
+
+```{r}
+summary(lm(mpg~log(weight)+sqrt(horsepower)+acceleration+I(acceleration^2), data=auto_clean))
+```
+
+* Worse R squared and better F than the regular OLS
+* The residual vs fitted values show indications of heteroskedasticity (non uniform varience of residuals around the mean of the residuals - cone shaped, initially low, increasing)
+* Multiple variables show an l like form when plotted against y, indicating that it might be better to take a log on the response variable (mpg) instead 
+
+```{r}
+summary(lm(log(mpg)~., data=auto_clean))
+```
+
+* This shows better R squared and F than the regular ols
+* There is also no longer any evidence of hetereskedascity around the mean of the residuals 

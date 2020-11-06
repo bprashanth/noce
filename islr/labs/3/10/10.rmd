@@ -1,0 +1,55 @@
+This question should be answered using the `Carseats` data set 
+
+```{r}
+library(ISLR)
+summary(Carseats)
+```
+
+* This is a dataset of car store locations and car prices. 
+
+## a.b. Fit the multiple regression model to predict `Sales` using `Price`, `Urban` and `US`
+
+```{r}
+lm.ols <- lm(Sales~Price+Urban+US, data=Carseats)
+summary(lm.ols)
+```
+* Price and US are significant. 
+* There is a unit increase in sales for every -.054 units drop in price. 
+* If the store is in the US there is a net increase in sales by 1.2, i.e stores in the US sell better on average than other stores by this amount. 
+
+## c.d. Write out the model in equation form, being careful to handle the qualitative variables properly 
+
+```
+Sales = 13.04 - 0.054 * Price + -0.021 I(UrbanYes) + 1.200 * I(USYes)
+```
+
+* We can only reject the null hypothesis for values with a significantly small p value, i.e Price and USYet. We must accept it for UrbanYES (the null says there is no relationship between the predictor and the response) 
+
+## e.f Fit a smaller model that only uses the predictors for which there is evidence of association with the outcome 
+
+```{r}
+lm.ols_sig <- lm(Sales~Price+US, data=Carseats)
+summary(lm.ols_sig)
+```
+* Comparing this to the summary of the previous ols we see that the fit is only slightly better without the unrelated variable (based on the F statistic). 
+
+## g. Obtain the 95% confidence intervals for the coefficients 
+
+```{r}
+confint(lm.ols_sig)
+```
+
+## h. Evidence of outliers or high leverage observations?
+
+* outliers (don't follow trendline). Studentized residuals are all between -3 and 3 so no outliers. 
+```{r}
+plot(predict(lm.ols_sig), rstudent(lm.ols_sig))
+```
+
+* leverage (extreme points)
+```{r}
+cooksd <- cooks.distance(lm.ols_sig)
+plot(cooksd, pch="*")
+abline(h=4*mean(cooksd), col="red")
+text(x=1:length(cooksd)+1, y=cooksd, labels=ifelse(cooksd>4*mean(cooksd, na.rm=T), names(cooksd), ""), col="red")
+```
