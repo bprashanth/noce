@@ -1,0 +1,44 @@
+In this problem we will investigate the t-statistic for the null hypothesis H_0: B = 0 in simple linear regression without an intercept. Generate a predictor `x` and a response `y`
+```{r}
+set.seed(1)
+x = rnorm(100)
+y = 2 * x + rnorm(100)
+```
+
+## a. Perform a simple linear regression of y onto x without an intercept 
+
+```{r}
+lm.y_x = lm(y ~ x + 0)
+summary(lm.y_x)
+```
+
+* Coefficient estimate: 1.99
+* Standard error of the coefficient estimate: 0.106
+* t-statistic and p-value for the null hypothesis: 18.73, 2e-16
+* Comment on these results 
+
+The SE is a measure of the expected error of the coefficient estimate. We would like this to be sufficiently low. The t-statistic is the number of standard errors the coefficient `B` is away from 0. The p-value for the t-statistic is a condictional probability that, if the null hypothesis was true, how probable is it that we would get such a t-statistic value by fluke. Since this value is small, we reject the null hypothesis. 
+
+## b. c. Now perform a simple linear regression of x onto y without an intercept and repeat 
+
+```{r}
+lm.x_y = lm(x ~ y + 0)
+summary(lm.x_y)
+```
+
+This coefficient is also significant meaning x = f(y) => y = f'(x)
+
+## d. e. f. Argue that the t-statistic for the regression of y onto x is the same as the t-statistic for the regression of x onto y_x
+
+In either case the t-statistic can be written as 
+```{r}
+sqrt(length(x)-1) * sum(x*y)) / (sqrt(sum(x*x) * sum(y*y) - (sum(x*y))^2)
+```
+
+In r, both regressions have the same t statistic even with an intercept 
+```{r}
+summary(lm(x ~ y))
+summary(lm(y ~ x))
+```
+
+This is because even though the coefficients are different, the t statistic has been standardized by the SE, which is also different in both cases. 
