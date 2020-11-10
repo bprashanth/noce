@@ -1,0 +1,36 @@
+Create some simulated data and fit simple linear regression models to it. 
+
+```{r}
+set.seed(1)
+```
+
+## a. b. c. Using rnorm() create a vector x with 100 obs from N(mean = 0, sd = 1). This represents a feature X.
+
+```{r}
+x = rnorm(100, mean=0, sd=1) # mean 0 and sd 1 is the default 
+eps = rnorm(100, mean=0, sd=0.25^0.5) # var 0.25 => sd sqrt(0.25)
+y = -1 + 0.5 * x + eps
+```
+
+* What is the length of the vector `y`? 100
+* What are the values of `B_0` and `B_1` in this linear model? -1, 0.5
+
+## d. Create a scatterplot displaying the relationship between `x` and `y`. Comment. 
+
+```{r}
+plot(x, y)
+```
+
+There is a highly linear relationship between x and y, with a positive, upward slope. 
+
+## e. Fit a least squares model to predict y given x. 
+
+```{r}
+lm.y_fit = lm(y~x)
+summary(lm.y_fit)
+```
+
+* How do the estimated `Bs` compare to the actual `Bs`
+
+They're very close because the true distribution is normal. 
+

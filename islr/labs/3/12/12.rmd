@@ -1,0 +1,27 @@
+This problem involves simple linear regression without an intercept. 
+
+## a. Under what circumstance is the coefficient estimate for the regression of X onto Y the same as the coefficient estimate for the regression of Y onto X? 
+
+One clear case is when `B` = 1 
+But more generally, since `B = sum[(x_i-x_bar)(y_i-y_bar)] / sum[(x_i-x_bar)^2]` for the regression of X on Y, they will be equal when `sum[(x_i-x_bar)^2] = sum[(y_i-y_bar)^2]`, i.e when the estimate of each `y` is as far from the mean of `y` as the estimate of each `x` is from the mean of `x`. 
+
+## Geneerate an example where the coefficient for X on Y is different from Y on x_bar
+
+```{r}
+set.seed(1)
+x = rnorm(100)
+y = 2*x + rnorm(100)
+summary(lm(y~x+0))
+summary(lm(x~y+0))
+```
+
+## Generate an example in which the coefficient estimate for the regression of X onto Y is the same as the coefficient of Y onto X 
+
+```{r}
+x = rnorm(100, mean=1000, sd=0.1)
+y = rnorm(100, mean=1000, sd=0.1)
+summary(lm(y~x+0))
+summary(lm(x~y+0))
+```
+
+The coeffients will be sufficiently close if the mean and sd of the distributions are of x and y are similar enough. 
