@@ -34,3 +34,24 @@ summary(lm.y_fit)
 
 They're very close because the true distribution is normal. 
 
+## f. Display the least squares line on the scatterplot from d.
+
+```{r}
+plot(x, y)
+abline(lm.y_fit, col="red")
+abline(-1, 0.5, col="blue")
+legend(x="bottomright", legend=c("population regression line", "model regression line"), fill=c("blue", "red"))
+```
+
+NB: `abline` takes the intercept and slope of the line which is stored in lm.y_fit, and an argument to denote color, stored as a string. 
+```{r}
+lm.y_fit
+```
+
+* Draw the population regression line on the plot, in a different color. 
+
+The population regression line will be an `abline` with the actual intercept and slope from the equation, not the estimated ones. 
+
+* Use the `legend()` command to creaet an appropriate legend 
+
+Note that `legend` requires at least 3 arguments to make sense. An `x` (which could be a combined x,y conveyed via a string value), the `legend` variable itself, and the colors used in the `abline` corresponding to the labels specified in the `legend` variable. 
